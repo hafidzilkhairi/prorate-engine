@@ -4,6 +4,7 @@ function createDeleteButton(item) {
     const deleteButton = document.createElement('button');
     deleteButton.textContent = 'Delete';
     deleteButton.classList.add('deleteButton');
+    deleteButton.id = 'DeleteButton';
     deleteButton.addEventListener('click', function () {
         products = products.filter(product => product !== item);
         renderProductList();
@@ -17,12 +18,17 @@ function createEditButton(item) {
     editButton.classList.add('editButton');
     editButton.addEventListener('click', function () {
         const newPrice = parseFloat(prompt('Enter the new price (IDR):'));
+        const newWeight = parseInt(prompt('Enter the new weight:'));
+
         if (!isNaN(newPrice)) {
             item.price = newPrice;
-            renderProductList();
-        } else {
-            alert('Please enter a valid price.');
         }
+
+        if (!isNaN(newWeight) && newWeight > 0) {
+            item.weight = newWeight;
+        }
+
+        renderProductList();
     });
     return editButton;
 }
@@ -94,8 +100,12 @@ function renderProductList() {
         const deleteButton = createDeleteButton(item);
         const editButton = createEditButton(item);
 
-        listItem.appendChild(deleteButton);
-        listItem.appendChild(editButton);
+        const buttonDiv = document.createElement('div');
+        buttonDiv.classList.add('button-group');
+        buttonDiv.appendChild(editButton);
+        buttonDiv.appendChild(deleteButton);
+
+        listItem.appendChild(buttonDiv);
         productList.appendChild(listItem);
     });
 }
@@ -175,6 +185,7 @@ function showProductTable() {
     // Create a button to show the table image
     const showImageButton = popup.document.createElement('button');
     showImageButton.textContent = 'Show Table as Image';
+    showImageButton.id = 'showImageButton';
     showImageButton.addEventListener('click', () => {
         html2canvas(table).then(canvas => {
             const imgData = canvas.toDataURL('image/png');
@@ -194,6 +205,8 @@ function showProductTable() {
             img.style.maxWidth = '100%'; // Ensure image responsiveness
             img.style.height = 'auto';
             popup.document.body.appendChild(img);
+
+            img.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
     });
 
