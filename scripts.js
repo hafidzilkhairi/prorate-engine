@@ -115,6 +115,7 @@ function showProductTable() {
     head.appendChild(link);
 
     const table = popup.document.createElement('table');
+    table.style.maxWidth = '100%';
 
     const totalProductPrice = products.reduce((total, product) => total + product.price, 0);
 
@@ -166,7 +167,37 @@ function showProductTable() {
 
     table.appendChild(summaryRow);
 
+    popup.document.body.style.margin = '0';
+    popup.document.body.style.padding = '10px';
+
     popup.document.body.appendChild(table);
+
+    // Create a button to show the table image
+    const showImageButton = popup.document.createElement('button');
+    showImageButton.textContent = 'Show Table as Image';
+    showImageButton.addEventListener('click', () => {
+        html2canvas(table).then(canvas => {
+            const imgData = canvas.toDataURL('image/png');
+
+            // Add a note above the image
+            const note = popup.document.createElement('div');
+            note.textContent = 'Note: This table is displayed as an image and can be shared.';
+            note.style.backgroundColor = '#f5f5f5';
+            note.style.padding = '10px';
+            note.style.marginBottom = '10px';
+            popup.document.body.appendChild(note);
+
+            // Show the table image below the button
+            const img = popup.document.createElement('img');
+            img.src = imgData;
+            img.style.width = '100%'; // Adjust the width as needed
+            img.style.maxWidth = '100%'; // Ensure image responsiveness
+            img.style.height = 'auto';
+            popup.document.body.appendChild(img);
+        });
+    });
+
+    popup.document.body.appendChild(showImageButton);
 }
 
 
