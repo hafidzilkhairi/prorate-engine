@@ -233,7 +233,30 @@ function showProductTable() {
         });
     });
 
-    popup.document.body.appendChild(showImageButton);
+    
+    // popup.document.body.appendChild(showImageButton);
+    setTimeout(() => {
+        html2canvas(table).then(canvas => {
+            const imgData = canvas.toDataURL('image/png');
+
+            // Add a note above the image
+            const note = popup.document.createElement('div');
+            note.textContent = 'Note: This table is displayed as an image and can be shared.';
+            note.style.backgroundColor = '#f5f5f5';
+            note.style.padding = '10px';
+            note.style.marginBottom = '10px';
+            popup.document.body.appendChild(note);
+
+            // Show the table image below the button
+            const img = popup.document.createElement('img');
+            img.src = imgData;
+            img.style.width = '100%'; // Adjust the width as needed
+            img.style.maxWidth = '100%'; // Ensure image responsiveness
+            img.style.height = 'auto';
+            popup.document.body.innerHTML = '';
+            popup.document.body.appendChild(img);
+        });
+    }, 10);
 }
 
 
