@@ -5,6 +5,32 @@
   box-sizing: border-box;
 }
 
+/* Define the fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; background-color: #89bfe4; }
+  to { opacity: 1; background-color: none;}
+}
+
+/* Apply the animation to the last child of #productList */
+#productList li:last-child {
+  animation: fadeIn 1s ease-in-out;
+}
+
+.floating-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #55bbff; /* Button color */
+  color: white; /* Text color */
+  border: none;
+  border-radius: 50%; /* Makes the button round */
+  width: 60px; /* Button width */
+  height: 60px; /* Button height */
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow effect */
+}
+
 body {
   font-family: Arial, sans-serif;
   font-size: 16px;

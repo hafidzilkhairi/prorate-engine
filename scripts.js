@@ -1,4 +1,12 @@
+
 let products = []; // Array to store products
+document.getElementById('scrollToFormButton').addEventListener('click', () => {
+    const formElement = document.getElementById('productForm');
+    formElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    const productNameInput = document.getElementById('productName');
+    productNameInput.focus({ preventScroll: true });
+});
 
 function createDeleteButton(item) {
     const deleteButton = document.createElement('button');
@@ -48,6 +56,21 @@ function addProduct() {
 
         products.push(newProduct);
         renderProductList();
+
+        // Scroll to the last product added
+        const productList = document.getElementById('productList');
+        const lastProduct = productList.lastElementChild;
+
+        // Apply the animation class to the last product list
+        lastProduct.classList.add('animate');
+
+        // Scroll to the last product added
+        lastProduct.scrollIntoView({ behavior: 'smooth', block: 'end' });
+
+        // Remove the animation class after the animation completes
+        setTimeout(() => {
+            lastProduct.classList.remove('animate');
+        }, 1000); // A
     } else {
         alert('Please enter valid product name, price, and weight.');
     }
