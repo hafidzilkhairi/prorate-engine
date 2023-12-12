@@ -118,7 +118,7 @@ function renderProductList() {
 
     products.forEach(function (item) {
         const listItem = document.createElement('li');
-        listItem.textContent = `${item.name}: IDR ${item.price.toLocaleString('id-ID')} | Weight: ${item.weight}`;
+        listItem.textContent = `${item.name}: IDR ${item.price.toLocaleString('id-ID')} | Weight: ${item.weight}(${(item.price / item.weight).toFixed(2)})`;
 
         const deleteButton = createDeleteButton(item);
         const editButton = createEditButton(item);
